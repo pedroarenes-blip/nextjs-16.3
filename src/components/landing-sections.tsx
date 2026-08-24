@@ -616,6 +616,10 @@ export function LandingFooter({
       <div className="mx-auto mt-10 w-full max-w-6xl border-t border-zinc-800/70 px-6 pt-6 text-center text-xs text-zinc-600">
         © {year} {name}
         {legalData.razonSocial ? ` · ${legalData.razonSocial}` : ""}
+        {" · Diseñado por "}
+        <a href="https://www.pedroaren.com" className="font-medium text-zinc-500 transition hover:text-amber-400">
+          Pedro Arenas
+        </a>
       </div>
     </footer>
   );
