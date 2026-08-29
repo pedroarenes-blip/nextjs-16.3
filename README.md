@@ -135,6 +135,37 @@ La documentación detallada de cada subsistema está en `docs/`: `rbac.md`,
 `image-accessibility.md`, `sector-templates.md`, `seo.md`, `i18n.md` y
 `analytics.md`.
 
+## Coexistencia con el CMS de Squaads (`@squaads/cms-*`)
+
+El template trae **dos** CMS que no se pisan. La regla que decide cuál usar:
+
+> **El CMS del template (`/admin`) gobierna las páginas que viven en la base.
+> El CMS de Squaads (`/panel`) gobierna el contenido que vive en el código.**
+
+- Una página que el cliente crea, ordena y publica desde un panel → **`/admin`**
+  (vive en la base). La home y cada `/[slug]` son de acá; **no las anotes**.
+- Una landing a medida, unas páginas legales o una sección fija que el
+  desarrollador **escribe en código** y el cliente solo retoca → **`/panel`**
+  (Squaads CMS). El ejemplo está en `src/app/examples/cms-demo/page.tsx`.
+
+Anotar con `data-cms` un texto que ya administra `/admin` pondría a los dos
+sistemas a escribir lo mismo, y gana el que publique último: no lo hagas.
+
+**Qué ya está montado** (cero colisión con lo del template): rutas de API bajo
+`/api/cms/*`, el panel en `/panel` con su gate de acceso, la ruta de acceso en
+`/api/cms/auth`, el runtime en `src/app/examples/layout.tsx`, y la declaración de
+páginas en `src/lib/cms.config.ts`.
+
+**Arrancarlo en un clon** (además del setup del template):
+
+1. Completá el grupo `CMS_*` de `.env.example` en tu `.env.local`: las cuatro
+   claves del proyecto (las da el arquitecto al crear el proyecto en el servicio)
+   y elegí `CMS_AUTH_USER` / `CMS_AUTH_PASSWORD` (12+ caracteres).
+2. Registrá tus páginas de código en `src/lib/cms.config.ts` (copiá la de
+   ejemplo) y anotalas con `data-cms` siguiendo `examples/cms-demo`.
+3. Entrá a `/panel`, iniciá sesión y editá. Sin `CMS_AUTH_*`, el panel queda
+   **cerrado a propósito** (503), no es un fallo.
+
 ## Scripts
 
 ```bash
