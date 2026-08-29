@@ -8,6 +8,7 @@ import { canonicalUrl, getSeoSettings, normalizeSeoSettings, parseKeywords, sani
 import { Providers } from "@/components/providers";
 import { alternatesForPath, normalizeI18nConfig, normalizeLocale } from "@/lib/i18n";
 import { normalizeAnalyticsSettings } from "@/lib/analytics";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -145,6 +146,7 @@ export default async function RootLayout({
       <body className="min-h-full flex flex-col">
         <a href="#contenido-principal" className="skip-link">Saltar al contenido principal</a>
         <Providers analytics={analytics}>{children}</Providers>
+        <SpeedInsights />
       </body>
     </html>
   );
