@@ -110,6 +110,13 @@ src/
     confirmación del usuario.**
 11. **PROHIBIDO commitear `.env.local`** — contiene credenciales. Ya está
     gitignored.
+12. **Reglas de oro RLM (23-ago-2026, estudio Recursive Language Models)**:
+    (a) contexto como variable — nunca pegar ficheros >15-20K chars en prompts:
+    fichero en disco + extractos con `scripts/extraer-trozos.py` (proyectos/).
+    (b) máximo 1 nivel de subagentes (nunca subagentes de subagentes).
+    (c) anti-auto-modificación — ningún agente/cron edita skills, prompts o
+    memoria sin OK humano; proponer en el board, nunca aplicar.
+    (d) NUNCA limitar max_tokens en llamadas LLM (regla de misión crítica).
 
 ## Variables de entorno
 
