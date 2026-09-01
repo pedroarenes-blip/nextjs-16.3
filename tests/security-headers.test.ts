@@ -12,7 +12,9 @@ describe("buildSecurityHeaders", () => {
     });
     expect(h["X-Content-Type-Options"]).toBe("nosniff");
     expect(h["Referrer-Policy"]).toBe("strict-origin-when-cross-origin");
-    expect(h["X-Frame-Options"]).toBe("DENY");
+    // SAMEORIGIN, no DENY: la vista previa de /panel embebe el sitio en un
+    // iframe same-origin y DENY la bloquea.
+    expect(h["X-Frame-Options"]).toBe("SAMEORIGIN");
     expect(h["Permissions-Policy"]).toBe("camera=(), microphone=(), geolocation=()");
   });
 
@@ -67,7 +69,7 @@ describe("buildSecurityHeaders", () => {
     expect(csp).toContain("script-src 'self' 'unsafe-inline' https://www.googletagmanager.com");
     expect(csp).toContain("style-src 'self' 'unsafe-inline'");
     expect(csp).toContain("img-src 'self' data: blob: https:");
-    expect(csp).toContain("frame-ancestors 'none'");
+    expect(csp).toContain("frame-ancestors 'self'");
     expect(csp).toContain("object-src 'none'");
     expect(csp).toContain("base-uri 'self'");
     expect(csp).toContain("form-action 'self'");
