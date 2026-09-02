@@ -12,12 +12,17 @@
 // - style-src 'unsafe-inline' lo exige Tailwind v4 (estilos inyectados) y los
 //   atributos style inline del admin; quitarlo rompería el renderizado.
 // - El resto de directivas cierra lo que no se usa: object-src 'none',
-//   frame-ancestors 'none', base-uri 'self', form-action 'self'.
+//   frame-ancestors 'self', base-uri 'self', form-action 'self'.
+// - frame-ancestors/X-Frame-Options van en 'self'/SAMEORIGIN, NO en
+//   'none'/DENY: la vista previa de /panel embebe las páginas del propio
+//   sitio en un iframe same-origin, y DENY la bloquea (el panel muestra
+//   «No se pudo conectar con la vista previa»). El clickjacking desde
+//   sitios ajenos sigue bloqueado igual.
 
 const BASE_HEADERS: Record<string, string> = {
   "X-Content-Type-Options": "nosniff",
   "Referrer-Policy": "strict-origin-when-cross-origin",
-  "X-Frame-Options": "DENY",
+  "X-Frame-Options": "SAMEORIGIN",
   "Permissions-Policy": "camera=(), microphone=(), geolocation=()",
 };
 
@@ -28,7 +33,7 @@ export const CSP_DIRECTIVES = [
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
   "connect-src 'self' https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com",
-  "frame-ancestors 'none'",
+  "frame-ancestors 'self'",
   "base-uri 'self'",
   "form-action 'self'",
   "object-src 'none'",
