@@ -32,7 +32,7 @@ Vercel. Clona este repo y adáptalo a las necesidades del proyecto concreto.
 | Lenguaje | TypeScript | 7.0.x |
 | BD | NeonDB (PostgreSQL serverless) | @neondatabase/serverless 1.x |
 | Analytics | Google Analytics 4 (gtag) | vía next/script |
-| Package Manager | Bun | 1.3.x |
+| Package Manager | Bun | 1.4.2 |
 | Deploy | Vercel (con Bun) | — |
 
 ## Comandos
